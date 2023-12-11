@@ -1,12 +1,12 @@
-# TEST-RESULTS
-Zapažanja Calculator kod-a
-
-
-1. У коду нема провера за делење са нулом. Код треба бити ажуриран тако да се посебно проверава делење са нулом, а померање израза треба вратити као "ERROR" у таквим случајевима.
-2. Код не обрађује случајеве када су уноси невалидни. На пример, израз "1++2" или "3*+4" може представљати проблем. Требало би додати провере и обраду грешака за неисправне изразе.
-3. Static променљива finalResult: Употреба static променљиве finalResult може довести до проблема.Требало би размислити о промени ове променљиве, можда коришћењем локалних променљивих у методама где је могуће.
-4. Назив метода ToString() би требало да буде промењен у toString() да би се следило конвенцијама језика Java.
-5.  Постоје боље начине за конверзију и поређење карактера у Java, на пример, коришћењем Character.toString(Operations.ADDITION_SYMBOL) уместо String.valueOf(Operations.ADDITION_SYMBOL).
-6. За добијање израза од корисника, можда би било боље користити java.util.Scanner уместо прослеђивања израза као параметар методу Run().
-7. Уместо коришћења catch (Exception exc) за хватање свих изузетака, боље би било спецификовати који изузетаке очекујете. На пример, NumberFormatException када се изврши Float.parseFloat().
-8. Услови у методи evaluateExpression се могу упростити. Нпр. коришћењем метода startsWith за проверу почетка израза.
+Evo nekoliko potencijalnih grešaka i propusta u datom Java kodu:
+1. Konzistentnost u nazivima metoda: Metoda ToString u klasi Operations bi trebala biti nazvana toString u skladu s konvencijama imenovanja Java metoda.
+2. Static float finalResult: Upotreba static float finalResult; u klasi može uzrokovati neželjene efekte, posebno ako želite koristiti ovu klasu za više niti ili ako imate više instanci Calculator. Bolje bi bilo koristiti instancnu varijablu.
+3. ToString() metoda: Metoda ToString ne radi ono što se možda očekuje. Trebalo bi je preimenovati u toString, ali također biste trebali razmisliti o njenom preuređivanju tako da vraća nešto smisleno, poput niza svih podržanih operacija.
+4. Nedostatak provere veličine niza: Prilikom obrade operacija u metodi evaluateExpression, trebalo bi proveriti veličinu niza numbers i operations kako biste izbjegli izuzetke prilikom pristupa elementima niza koji možda ne postoje.
+5. Neispravna inicijalizacija varijable 'result': Varijabla float result trebala bi biti inicijalizirana unutar petlje ili van petlje, ne između. Ovako kako je napisano, rezultat može sadržavati neželjenu vrednost.
+6. Nepotrebna konverzija znakova u stringove: U mnogim delovima koda, znakovi se pretvaraju u stringove i obrnuto bez stvarne potrebe. Na primer, u Operations klasi, umesto return "" + ADDITION_SYMBOL + ..., možete jednostavno koristiti return String.valueOf(ADDITION_SYMBOL) + ....
+7. Nepotrebna upotreba float za brojeve: Korišćenje float za brojeve u računskim izrazima može uzrokovati gubitak preciznosti. Bolje je koristiti double ako to nije specifično potrebno.
+8. Nedostatak tretiranja deljenja s nulom: Kod ne tretira situaciju kada se pokušava deliti s nulom, što može uzrokovati izuzetak ili nedefinisanu vrednost.
+9. Pogrešna provera operacija: Prilikom provere operacija u metodi evaluateExpression, trebalo bi uzeti u obzir sve četiri osnovne aritmetičke operacije. Trenutna provera može izostaviti neke operacije.
+10. Nepotrebna upotreba static klasa za operacije: Klasa Operations nije namenjena instanciranju, stoga bi se mogla napraviti bez static metoda i promenljivih. Takođe, mogli biste razmotriti korišćenje enumeracije umesto statičke klase za operacije.
+11. Nedostatak podrške za razmake u izrazima: Kod ne tretira razmake između brojeva i operacija, što može uzrokovati neispravne rezultate. Dodavanje funkcionalnosti za ignorisanje razmaka bi bilo korisno
